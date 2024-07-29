@@ -308,9 +308,9 @@ public class NXProgramBuilder
             Address target = this.aSpace.getAddress(reloc.offset + this.nxo.getBaseAddress());
             long originalValue = adapter.isAarch32() ? this.program.getMemory().getInt(target) : this.program.getMemory().getLong(target);
             
-            if (reloc.r_type == ARM_ElfRelocationConstants.R_ARM_GLOB_DAT.typeId() ||
-                    reloc.r_type == ARM_ElfRelocationConstants.R_ARM_JUMP_SLOT.typeId() ||
-                    reloc.r_type == ARM_ElfRelocationConstants.R_ARM_ABS32.typeId()) 
+            if (reloc.r_type == ARM_ElfRelocationConstants.R_ARM_GLOB_DAT ||
+                    reloc.r_type == ARM_ElfRelocationConstants.R_ARM_JUMP_SLOT ||
+                    reloc.r_type == ARM_ElfRelocationConstants.R_ARM_ABS32) 
                 {
                     if (reloc.sym == null) 
                     {
@@ -321,13 +321,13 @@ public class NXProgramBuilder
                         program.getMemory().setInt(target, (int)(reloc.sym.getValue() + this.nxo.getBaseAddress()));
                     }
                 } 
-            else if (reloc.r_type == ARM_ElfRelocationConstants.R_ARM_RELATIVE.typeId())
+            else if (reloc.r_type == ARM_ElfRelocationConstants.R_ARM_RELATIVE)
             {
                 program.getMemory().setInt(target, (int)(program.getMemory().getInt(target) + this.nxo.getBaseAddress()));
             }
-            else if (reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_GLOB_DAT.typeId() ||
-                reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_JUMP_SLOT.typeId() ||
-                reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_ABS64.typeId()) 
+            else if (reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_GLOB_DAT ||
+                reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_JUMP_SLOT ||
+                reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_ABS64) 
             {
                 if (reloc.sym == null) 
                 {
@@ -343,7 +343,7 @@ public class NXProgramBuilder
                         gotNameLookup.put(reloc.offset, reloc.sym.getNameAsString());
                 }
             } 
-            else if (reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_RELATIVE.typeId()) 
+            else if (reloc.r_type == AARCH64_ElfRelocationConstants.R_AARCH64_RELATIVE) 
             {
                 program.getMemory().setLong(target, this.nxo.getBaseAddress() + reloc.addend);
             }
