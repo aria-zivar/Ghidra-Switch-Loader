@@ -294,7 +294,7 @@ public class ElfCompatibilityProvider
                 sym = null;
             }
             
-            if (r_type != AARCH64_ElfRelocationConstants.R_AARCH64_TLSDESC.typeId() && r_type != ARM_ElfRelocationConstants.R_ARM_TLS_DESC.typeId())
+            if (r_type != AARCH64_ElfRelocationConstants.R_AARCH64_TLSDESC && r_type != ARM_ElfRelocationConstants.R_ARM_TLS_DESC)
             {
                 locations.add(offset);
             }
